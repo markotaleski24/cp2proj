@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<title>Mines</title>
+<head>
+<script src="minefield.js"></script>
+<script>
+	var minefield = null;
+	var numberofmines;
+	var score=0;
+	function newGame() {
+		var table = document.getElementById("table");
+		table.innerHTML= null;
+		var difficulty = document.getElementById("difficulty");
+		timerStart();
+		if(difficulty.value == "beginner") {
+			minefield = new Minefield(9, 9, 10);
+			makefield();
+			numberofmines = 10;
+		}
+		else if(difficulty.value == "intermed") {
+			minefield = new Minefield(16, 16, 40);
+			makefield();
+			numberofmines = 40;
+		}
+		else if(difficulty.value == "expert") {
+			minefield = new Minefield(30, 16, 99);
+			makefield();
+			numberofmines = 99;
+		}
+	}
+	function hit(x, y) {
+		var x0 = Number(x);
+        var y0 = Number(y);
+		minefield.unveil(x0, y0);
+		print();
+	}
+	function print() {
+
+		var table = document.getElementById("table");
+		table.innerHTML= null;
+		
+		
+		for( var y = 0; y<minefield.height; y++) {
+			var row = table.insertRow(y);
+			for( var x = 0; x<minefield.width; x++) {
+				var cell = row.insertCell(x);
+				var number = minefield.symbol(x, y);
+				
+				if(number == ".") {
+					cell.innerHTML = "<input type='image' src='button.jpg' name='1' width='41px' height='41px' onclick='hit("+x+","+y+")'/>" ;
+				}
+				else if(number == 1) {
+					cell.innerHTML = "<input type='image' src='1_roman.jpg' name='1' width='41px' height='41px'/>" ;
+				}
+				else if(number == 2) {
+					cell.innerHTML = "<input type='image' src='2_roman.jpg' name='2' width='41px' height='41px'/>" ;
+				}
+				else if(number == 3) {
+					cell.innerHTML = "<input type='image' src='3_roman.jpg' name='3' width='41px' height='41px'/>" ;
+				}
+				else if(number == 4) {
+					cell.innerHTML = "<input type='image' src='4_roman.jpg' name='4' width='41px' height='41px'/>" ;
+				}
+				else if(number == 5) {
+					cell.innerHTML = "<input type='image' src='5_roman.jpg' name='5' width='41px' height='41px'/>" ;
+				}
+				else if(number == 6) {
+					cell.innerHTML = "<input type='image' src='6_roman.jpg' name='6' width='41px' height='41px'/>" ;
+				}
+				else if(number == 7) {
+					cell.innerHTML = "<input type='image' src='7_roman.jpg' name='7' width='41px' height='41px'/>" ;
+				}
+				else if(number == 8) {
+					cell.innerHTML = "<input type='image' src='8_roman.jpg' name='8' width='41px' height='41px'/>" ;
+				}
+				else if(number == 0) {
+					cell.innerHTML="<input type='image' src='transparent.png' name='8' width='41px' height='41px'/>";
+				}
+				else if (number == "x") {
+					window.alert("Unfortunately you have made a grave mistake and the Empire has fallen.");
+					table.innerHTML="<input type='image' src='lose.png' name='8' width='550px' height='450px'/>";
+					timerStop();
+				}
+
+			}
+		}
+		var veiled = minefield.veiled;
+		if( veiled == numberofmines ) {
+			window.alert("Congratulations General you have led this Empire to victory, Julius Caesar would be proud.");
+			table.innerHTML="<input type='image' src='win.png' name='8' width='450px' height='450px'/>";
+			timerStop();
+			bestTime();
+			score = score + 1;
+			document.getElementById("wins").innerHTML = score;
+
+
+		}
+	}
+	function makefield(){
+		var table = document.getElementById("table");
+		for( var y = 0; y<minefield.height; y++) {
+			var row = table.insertRow(y);
+			for( var x = 0; x<minefield.width; x++) {
+				var cell = row.insertCell(x);
+				cell.innerHTML = "<input type='image' src='button.jpg' name='1' width='41px' height='41px' onclick='hit("+x+","+y+")'/>";
+			}
+		}
+	}
+
+		var mytime = 0;
+		var minutes =0;
+		var check = false;
+		var handler = null;
+		var keeptime=0;
+	
+		function timerStart(){
+			timerReset();
+			if(!check){
+				handler = window.setInterval(increaseTime,1000);
+				check = true;
+			}
+
+		}
+		function timerStop(){
+			if(check){
+				window.clearInterval(handler);
+				check = false;
+				keeptime= mytime + (minutes*60);
+			}
+
+		}
+		function timerReset(){
+			mytime = 0;
+			minutes = 0;
+			printTime();
+
+		}
+
+		function increaseTime(){
+			if(mytime == 60 ){
+				mytime=0;
+				mytime=mytime+1;
+				minutes = minutes+1;
+			}
+			else{
+				mytime=mytime+1;
+			}
+			printTime();
+		}
+
+		function printTime(){
+			document.getElementById("timer").innerHTML = mytime;
+			document.getElementById("minute").innerHTML = minutes;
+		}
+
+		var bestTime1 = 10000;
+		var seconds=0;
+		var min=0;
+		function bestTime(){
+			if(keeptime < bestTime1) {
+				bestTime1 = keeptime;
+			}
+			seconds=Math.floor(bestTime1%60);
+			min=Math.floor(bestTime1/60);
+			document.getElementById("bestTime").innerHTML = min+":"+seconds;
+		}
+</script>
+<style  type="text/css">
+	body {
+		background-image: url("background.jpg");
+  		background-repeat: no-repeat;
+  		background-size: cover; 
+	}
+	#scoretable{
+		font-size: 31px;
+		color: #B6B6B6;
+		border-style: double;
+		border-width: 8px;
+		border-color: #68001F;
+		position: absolute;
+		top: 14px;
+		left: 14px;
+
+	}
+	#time {
+		font-size: 39px;
+		color: #B6B6B6;
+	}
+	#newgame{
+		background-color: #C3AF7D;
+		width: 175px;
+		height: 33px;
+		font-size: 18px;
+		font-weight: bold;
+	}
+	#label {
+		font-size: 21px;
+		color: #B6B6B6;
+	}
+	#difficulty{
+		background-color: #C3AF7D;
+		width: 145px;
+		height: 27px;
+		font-size: 18px;
+		font-weight: bold;
+
+	}
+	#table{
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#audio{
+		position: fixed;
+		bottom: 10px;
+		right: 10px;
+
+	}
+</style>
+</head>
+<body>
+	<table style="width:100%">
+		<tr>
+			<th><input type='image' src='flag.png' name='flag' width='500px' height='200px' id='flag'/></th>
+		</tr>
+		<tr>
+	    	<th><table id="table"></table></th>
+		</tr>
+		<tr>
+	  		<th><input type="button" id="newgame" value="New Game" onclick="newGame()"></th>
+		</tr>
+		<tr>
+	 		<th>
+	  			<label for="difficulty" id="label">Difficulty</label>
+		  		<select name="difficulty" id="difficulty">
+			  		<option value="beginner">Beginner</option>
+			  		<option value="intermed">Intermediate</option>
+			  		<option value="expert">Expert</option>
+				</select>
+			</th>
+		</tr>
+	</table>
+
+	<table id="scoretable">
+		<tr>
+			<th id="winstxt">You have won <span id="wins">0</span> times</th>
+		</tr>
+		<tr>
+			<th>Your best time is: <span id="bestTime">0:0</span></th>
+		</tr>
+		<tr>
+			<th id="time"> <span id="minute">0</span>:<span id="timer">0</span> </th>
+		</tr>
+	</table>
+	
+	<audio id="audio" controls loop autoplay>
+  		<source src="gametheme.mp3" type="audio/mpeg">
+	</audio>
+</body>
+</html>

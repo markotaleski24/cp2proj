@@ -1,0 +1,159 @@
+<html>
+<head>
+<title>Homework 2 Marko Taleski 89201031</title>
+<meta charset="UTF-8">
+<style>
+
+#canvas {
+	display: inline-block;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+#stickers {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+}
+.sticker {
+	display: inline-block;
+	box-sizing: border-box;
+	width: 50px;
+	height: 50px;
+	margin: 2px;
+}
+.color {
+	display: inline-block;
+	box-sizing: border-box;
+	width: 55px;
+	height: 40px;
+	border: 1px solid black;
+	margin: 2px 1px 0px 1px;
+}
+#clear {
+	width: 60;
+	height: 35;
+	font-weight: bold;
+	font-size: 17px;
+	background-color: blue;
+	color: white;
+}
+table {
+	width: 100%;
+	align-content: center;
+}
+</style>
+  <script>
+	 function dragOver(event) {
+		    event.preventDefault();
+		}
+		function drag(event) {
+		    event.dataTransfer.setData("text",event.target.id);
+		}
+
+		function drop(event) {
+		    event.preventDefault();
+		    var data = event.dataTransfer.getData("text");
+		    document.getElementById("canvas").getContext("2d").drawImage(document.getElementById(data), event.offsetX - 50 , event.offsetY - 50, 100, 100);
+		}
+  </script>
+</head>
+<body>
+<table>
+	<tr>
+		<th>
+		<div id="stickers">
+			<img class="sticker" id="img11" src="http://clipart-library.com/newimages/basketball-clip-art-25.gif" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img12" src="http://clipart-library.com/newimages/pizza-clip-art-1.jpg" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img13" src="http://clipart-library.com/2020/pngtree-epidemic-ncov-2019-coronavirus-health-earth-human-epidemic-medicine-pneumonia-danger-png-image_2139078.jpg" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img14" src="http://clipart-library.com/2020/spider-man-wolverine-venom-chibi-marvel-comics-spider.jpg" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img15" src="http://clipart-library.com/2020/iron-spiderman-clipart-spiderman-png-marvel-avengers-assemble-iron-man-full-body-115629484241slwjnw2ei.png" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img16" src="http://clipart-library.com/2020/6318548be37f8c33a9da5fc5217b5d9b.png" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img17" src="http://clipart-library.com/2020/thor-clipart-2018-15.png" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img18" src="http://clipart-library.com/2020/black-panther-marvel-avengers-alliance-clip-art-png-favpng-eE2siEfNPhi11w20DWL7jUsQA.jpg" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img19" src="http://clipart-library.com/images/rijGgM5ET.png" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img20" src="http://clipart-library.com/newimages/school-clip-art-2.jpg" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img21" src="http://clipart-library.com/newimages/school-clip-art-14.png" draggable="true" ondragstart="drag(event)">
+		</div>
+		
+		<canvas id="canvas" width="800" height="600" ondrop="drop(event)" ondragover="dragOver(event)" onmousedown="start(event)" onmousemove="draw(event)" onmouseup="stop(event)" onmouseout="stop(event)"></canvas>
+
+		<div id="stickers">
+			<img class="sticker" id="img" src="http://clipart-library.com/data_images/487831.png" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img1" src="http://clipart-library.com/data_images/487787.png" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img2" src="http://clipart-library.com/data_images/487743.png" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img3" src="http://clipart-library.com/data_images/487741.png" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img4" src="http://clipart-library.com/data_images/487815.png" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img5" src="http://clipart-library.com/data_images/402767.png" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img6" src="http://clipart-library.com/data_images/363964.gif" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img7" src="http://clipart-library.com/data_images/487785.png" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img8" src="http://clipart-library.com/data_images/487810.jpg" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img9" src="http://clipart-library.com/image_gallery/464509.png" draggable="true" ondragstart="drag(event)">
+			<img class="sticker" id="img10" src="http://clipart-library.com/image_gallery/464541.jpg" draggable="true" ondragstart="drag(event)">
+		</div>
+		
+
+	<div>
+	<script>
+		var colorNames = ["black", "gray", "silver", "white", "maroon", "red", "olive", "yellow", "green",
+		"lime", "teal", "aqua", "navy", "blue", "purple", "fuchsia"];
+		for (var i = 0; i < 16; i++) {
+		document.write(`<div id="color${i}" class="color" onclick="changeColor(this)" style="background-color:	${colorNames[i]}"></div>`);
+		}
+	 	var drawColor = "black";
+		var drawWidth = "2";
+		var drawing = false;
+		var canvas = document.getElementById("canvas");
+		var context = canvas.getContext("2d");
+
+		function start() {
+		 	drawing = true;
+		 	context.beginPath();
+		 	context.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+		 	event.preventDefault();
+		}
+
+		function draw(event) {
+		 	if (drawing) {
+				context.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+		 		context.strokeStyle = drawColor;
+		 		context.lineWidth = drawWidth;
+		 		context.lineCap = "round";
+				context.lineJoin = "round";
+		 		context.stroke();
+		 	}
+		  event.preventDefault();
+		  }
+
+	  function stop(event) {
+			if ( drawing ) {
+				context.stroke();
+				context.closePath();
+				drawing = false;
+			}
+			event.preventDefault();
+			}
+
+		function changeColor(element) {
+	
+			drawColor = element.style.backgroundColor;
+
+		}
+
+		function clearCanvas() {
+			context.clearRect(0, 0, 800, 600);
+		}
+		function eraser(){
+			drawColor = "white";
+		}
+	</script>
+	</div>
+	<div>
+			<button onclick="clearCanvas()" type="button" id="clear"> Clear </button>
+			<input type="range" name="thickness" min="1" max="100" oninput="drawWidth = this.value">
+			<img onclick="eraser()" src="http://clipart-library.com/newhp/Rubber_Eraser_PNG_Clipart.png" width="50" height="35" style="margin-top: 10px;" >
+		</div>
+		</th>
+	</tr>
+</table>
+</body>
+</html>
