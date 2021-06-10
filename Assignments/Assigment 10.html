@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Assigment 10</title>
+</head>
+<style type="text/css">
+	.box {
+    display: flex;
+    float: left;
+    width: 100px;
+    height: 100px;
+    border: 2px solid red;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+.item {
+    display: flex;
+    width: 90px;
+    height: 90px;
+    background-color: seagreen;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: yellow;
+    user-select: none;
+}
+
+</style>
+<script type="text/javascript">
+	function itemDragStart(event) {
+		event.dataTransfer.setData("text", event.target.id);
+
+	}
+	function itemDragOver(event){
+		var targetBox = event.target;
+		event.preventDefault();
+
+	}
+
+	function itemDrop(event) {
+		var targetBox = event.target;
+		targetBox.style.backgroundColor = "";
+		var draggedId = event.dataTransfer.getData("text");
+		var draggedItem = document.getElementById(draggedId);
+		targetBox.appendChild(draggedItem);
+		event.preventDefault();
+
+	}
+
+	function itemDragEnter(event) {
+		var targetBox = event.target;
+		targetBox.style.backgroundColor = "silver";
+		event.preventDefault();
+
+	}
+
+	function itemDragLeave(event) {
+		var targetBox = event.target;
+		targetBox.style.backgroundColor = "";
+		event.preventDefault();
+
+	}
+
+	function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+	        var j = Math.floor(Math.random() * (i + 1));
+	        var temp = array[i];
+	        array[i] = array[j];
+	        array[j] = temp;
+    	}
+	}
+
+</script>
+<body>
+	<script>
+		var letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
+		shuffleArray(letters);
+			for( i =1; i <=9; i++) {
+				var letter=letters[i-1];
+				if( i == 9 ) {
+					document.write(`<div id = "box${i}" class = "box" ondragover = "itemDragOver(event)" ondrop = "itemDrop(event)"	ondragenter = "itemDragEnter(event)" ondragleave = "itemDragLeave(event)"></div>`);
+				}
+				else if( i == 3 || i == 6){
+					document.write(`<div id = 'box${i}' class = 'box' ondragover='itemDragOver(event)' ondrop = 'itemDrop(event)'>
+									<div id = 'item${i}' class= 'item' draggable = 'true' ondragstart='itemDragStart(event)'>${letter}</div>
+									</div> <br style="clear:both" />`);
+				}
+				else {
+					document.write(`<div id = 'box${i}' class = 'box' ondragover='itemDragOver(event)' ondrop = 'itemDrop(event)'>
+									<div id = 'item${i}' class= 'item' draggable = 'true' ondragstart='itemDragStart(event)'>${letter}</div>
+									</div>`);
+				}				
+			}
+	</script>
+</body>
+</html>

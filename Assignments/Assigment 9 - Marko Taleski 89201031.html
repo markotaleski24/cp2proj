@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		
+		input {
+			width: 170px;
+			border: 1px solid black;
+		}
+		select {
+			width: 175px;
+			height: 30px;
+			background-color: lightgrey;
+		}
+		button {
+			display: block;
+			float: left;
+			width: 83px;
+			height: 30px;
+			margin: 3px;
+		}
+		.req:invalid {
+  			background-color: red;
+		}
+
+		
+	</style>
+	<script type="text/javascript">
+		function validateName() {
+			var get_input = document.getElementById("finput");
+
+			var str = get_input.value;
+			var splitstr = str.split(" ");
+			if((splitstr[0])[0].toUpperCase() == (splitstr[0])[0] && (splitstr[1])[0].toUpperCase() == (splitstr[1])[0]) {
+				var names = document.getElementById("allnames");
+				var option = document.createElement("option"); 
+				option.text = str;
+				names.add(option);
+			}
+			else {
+				get_input.setCustomValidity("Invalid field.");
+			}
+
+		}
+		
+		
+
+	</script> 
+</head>
+<body onload="validateName()">
+<form>
+	<div>
+		<select name="allnames" id="allnames"></select>
+	</div>
+	<div>
+		<input class="req" type="text" name="finput" id="finput" required>
+	</div>
+	
+
+	<button type="button" onclick="validateName()">Add</button>
+	<button type="button">Clear</button>
+
+</form>
+</body>
+</html>
